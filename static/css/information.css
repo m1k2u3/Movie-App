@@ -1,0 +1,34 @@
+.header{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    justify-content: center;
+}
+.header_image img {
+    max-height: 50vh;
+}
+
+.header_description {
+    width: 60;
+}
+.video_block {
+    width: 100%;
+}
+
+.video_block iframe {
+    width: 100%;
+    min-height: 720px;
+    min-width: 1080px;
+    height: auto;
+}
+
+.comments-list {
+    background: linear-gradient(30deg, #0000, #ffffff);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 25px;
+}

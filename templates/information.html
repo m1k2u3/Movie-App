@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/information.css">
+<link rel="stylesheet" href="/static/css/slider.css">
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="header"
+    style="background: url('https://image.tmdb.org/t/p/original{{movie.backdrop_path}}'); background-size: cover; background-position: center;">
+
+    <div class="header_image">
+        <img src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" alt>
+    </div>
+    <div class="header_description">
+        <h1>{{movie.title}}</h1>
+        <p>{{movie.overview}}</p>
+        <div class="header-rating">
+            <div>
+                <img src="/static/images/imdb.png" alt>
+                <span>{{movie.vote_average}}</span>
+            </div>
+            <a href="{{ url_for('toggle_favourite_movie', movie_id=movie.id ) }}">
+                <svg {% if movie.id in fav_movies %} fill="#ff0000" {% else %} fill="#ffff" {% endif %} version="1.1"
+                    id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="20px" height="20px" viewBox="0 0 168.1 168.1" xml:space="preserve" stroke="#faf9f9">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <g>
+                            <path
+                                d="M143.558,20.077c-6.823-3.625-14.633-5.699-22.954-5.699c-14.66,0-27.832,6.438-36.526,16.515 C75.325,20.815,62.197,14.378,47.5,14.378c-8.313,0-16.141,2.068-22.957,5.699C9.913,27.83,0,42.774,0,60.033 c0,4.944,0.835,9.639,2.349,14.082c8.125,35.202,60.155,79.606,81.733,79.606c20.982,0,73.512-44.404,81.672-79.606 c1.514-4.443,2.346-9.138,2.346-14.082C168.107,42.774,158.185,27.83,143.558,20.077z M152.812,70.102 c-0.472,1.313-1.695,2.132-3.043,2.132c-0.338,0-0.679,0-1.028-0.118c-1.691-0.571-2.567-2.377-2.003-4.074 c0.91-2.684,1.378-5.373,1.378-8.008c0-9.565-5.444-18.378-14.153-22.949c-4.16-2.25-8.632-3.379-13.358-3.379 c-1.779,0-3.185-1.378-3.185-3.195c0-1.749,1.405-3.182,3.185-3.182c5.744,0,11.261,1.378,16.352,4.073 c10.827,5.748,17.547,16.692,17.547,28.632C154.502,63.407,153.949,66.791,152.812,70.102z">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+            </a> alt>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="carousel-wrapper">
+        <!-- abstract radio buttons for slides -->
+        {% for i in range (10) %}
+
+        <input id="slide{{i+1}}" {% if i==0 %} checked {% endif %} type="radio" name="controls" />
+
+
+        {% endfor %}
+
+        <!-- navigation dots -->
+        {% for i in range (10) %}
+        <label for="slide{{i+1}}" class="nav-dot"></label>
+        <!-- <label for="slide2" class="nav-dot"></label>
+            <label for="slide3" class="nav-dot"></label>
+            <label for="slide4" class="nav-dot"></label>
+            <label for="slide5" class="nav-dot"></label> -->
+        {% endfor %}
+        <!-- arrows -->
+        {% for i in range (10) %}
+        <label for="slide{{i+1}}" class="left-arrow"> < </label>
+        <!-- <label for="slide2" class="left-arrow"> > </label>
+            <label for="slide3" class="left-arrow"> > </label>
+            <label for="slide4" class="left-arrow"> > </label>
+            <label for="slide5" class="left-arrow"> > </label> -->
+        {% endfor %}
+        {% for i in range (10) %}
+        <label for="slide{{i+1}}" class="right-arrow"> > </label>
+        <!-- <label for="slide2" class="right-arrow"> > </label>
+            <label for="slide3" class="right-arrow"> > </label>
+            <label for="slide4" class="right-arrow"> > </label>
+            <label for="slide5" class="right-arrow"> > </label> -->
+        {% endfor %}
+        <div class="carousel">
+            <ul>
+                {% for image in images.backdrops[:10] %}
+                <li>
+                    <img src="https://image.tmdb.org/t/p/original{{image.file_path}}" />
+                </li>
+                {% endfor %}
+                <!-- </li>
+                <li>
+                    <img src="https://m.media-amazon.com/images/I/31Y+R3Y3nvL._SL1000_.jpg" alt="">
+                </li>
+                <li>
+                    <img
+                        src="https://raw.githubusercontent.com/osef-art/ministick/main/data/img/main/ministick-clip-3.gif" />
+                </li>
+                <li>
+                    <img
+                        src="https://raw.githubusercontent.com/osef-art/osef-art.github.io/master/src/assets/wallpapers/smoke.jpg">
+                </li>
+                <li>
+                    <img src="https://images.ctfassets.net/9l3tjzgyn9gr/photo-157575/d224d518da6c26515a470a9b7e490df8/157575-honey-bun-baby.jpg?fm=jpg&fl=progressive&q=50&w=1200"
+                        alt="">
+                </li> -->
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+<div class="video_block">
+    <iframe src="https://www.youtube.com/embed/{{video_key}}" frameborder="0">
+
+    </iframe>
+</div>
+<div class="coments" id="comments">
+    <h2 class="coments-title">Coments</h2>
+    <form action="{{ url_for('movie_details', movie_id=movie.id) }}#comments" method="post">
+        <textarea name="content" id=""></textarea>
+
+        {% if current_user.is_authenticated %}
+        <button class="comment-submit" type="submit">Send</button>
+
+        {% else %}
+        <a class="comment-submit" href="{{ url_for('singin' ) }}">Send</a>
+
+        {% endif %}
+    </form>
+
+    <div class="comments-list">
+        {% for comment in comments %}
+        <div class="comment">
+            <div class="comments-header">
+                <h3>{{comment.user.username}}</h3>
+                <p>{{comment.created_at}}</p>
+                {% if current_user.is_authenticated and current_user.id == comment.user.id %}
+
+                <a href="{{ url_for('delete_comment', comment_id=comment.id ) }}" class="delete-btn"><svg fill="#000000"
+                        version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                        viewBox="0 0 468.36 468.36" xml:space="preserve">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <g>
+                                    <path
+                                        d="M381.048,64.229l-71.396,0.031L309.624,0L158.666,0.064l0.027,64.26l-71.405,0.031l0.024,60.056h293.76L381.048,64.229z M189.274,30.652l89.759-0.04l0.016,33.66l-89.759,0.04L189.274,30.652z">
+                                    </path>
+                                    <path
+                                        d="M87.312,468.36h293.76V139.71H87.312V468.36z M303.042,184.588h15.301v238.891h-15.301V184.588z M226.542,184.588h15.3 v238.891h-15.3V184.588z M150.042,184.588h15.3v238.891h-15.3V184.588z">
+                                    </path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg></a>
+                {% endif %}
+                </form>
+            </div>
+            <p>{{comment.content}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="movies">
+    <div class="movies-header">
+        <h2> recomendation </h2>
+
+
+    </div>
+
+    <div class="movie-list">
+
+        {% for movie in recomendation [0:5] %}
+        <div class="movie">
+            <img src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" alt>
+            <div class="movie-description">
+                <a href="{{url_for('movie_details',movie_id=movie.id)}}" class="movie-title">
+                    {{movie.title}}</a>
+                <p>{{movie.release_date}}</p>
+                <div class="movie-avarage">
+                    <div>
+                        <img src="/static/images/imdb.png" alt>
+                        <p>{{movie.vote_average}}</p>
+                    </div>
+                    <a href="{{ url_for('toggle_favourite_movie', movie_id=movie.id ) }}">
+                            <svg {% if movie.id in fav_movies %} fill="#ff0000" {% else %} fill="#ffff" {% endif %}
+                                version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                viewBox="0 0 168.1 168.1" xml:space="preserve" stroke="#faf9f9">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <g>
+                                        <path
+                                            d="M143.558,20.077c-6.823-3.625-14.633-5.699-22.954-5.699c-14.66,0-27.832,6.438-36.526,16.515 C75.325,20.815,62.197,14.378,47.5,14.378c-8.313,0-16.141,2.068-22.957,5.699C9.913,27.83,0,42.774,0,60.033 c0,4.944,0.835,9.639,2.349,14.082c8.125,35.202,60.155,79.606,81.733,79.606c20.982,0,73.512-44.404,81.672-79.606 c1.514-4.443,2.346-9.138,2.346-14.082C168.107,42.774,158.185,27.83,143.558,20.077z M152.812,70.102 c-0.472,1.313-1.695,2.132-3.043,2.132c-0.338,0-0.679,0-1.028-0.118c-1.691-0.571-2.567-2.377-2.003-4.074 c0.91-2.684,1.378-5.373,1.378-8.008c0-9.565-5.444-18.378-14.153-22.949c-4.16-2.25-8.632-3.379-13.358-3.379 c-1.779,0-3.185-1.378-3.185-3.195c0-1.749,1.405-3.182,3.185-3.182c5.744,0,11.261,1.378,16.352,4.073 c10.827,5.748,17.547,16.692,17.547,28.632C154.502,63.407,153.949,66.791,152.812,70.102z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+
+{% endblock %}
