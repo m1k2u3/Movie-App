@@ -246,4 +246,4 @@ def profile():
    
     return render_template("profile.html",favorite_movies=favorite_movies)
  
-app.run(debug=DEBUG)
+# app.run(debug=DEBUG)
